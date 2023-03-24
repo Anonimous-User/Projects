@@ -54,7 +54,7 @@ public class App extends JPanel implements MouseListener, KeyListener{
 
         //create and using Lobster font
         try {
-            Lobster = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(".\\NotesAndRemindersApp\\src\\lobster\\Lobster 1.4.otf"));
+            Lobster = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(".\\src\\lobster\\Lobster 1.4.otf"));
             Lobster  = Lobster.deriveFont(Font.BOLD + Font.ITALIC, headerFontSize);
         } catch (FontFormatException e) {
             e.printStackTrace();

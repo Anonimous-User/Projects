@@ -1,4 +1,4 @@
-package TicTacToe.TxtBased.src;
+package Finished.TicTacToe.TxtBased.src;
 
 import java.util.*;
 public class App {

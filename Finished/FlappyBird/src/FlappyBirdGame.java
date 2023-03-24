@@ -1,4 +1,4 @@
-package FlappyBird.src;
+package Finished.FlappyBird.src;
 
 import java.awt.*;
 import javax.swing.*;
@@ -102,15 +102,15 @@ public class FlappyBirdGame extends JPanel implements MouseListener, KeyListener
 
         try
         {
-            title = ImageIO.read(new File(".\\FlappyBird\\src\\TitleScreen.png"));
-            background = ImageIO.read(new File(".\\FlappyBird\\src\\background.png"));
-            onePlayerButton = ImageIO.read(new File(".\\FlappyBird\\src\\OnePlayerButton.png"));
-            twoPlayerButton = ImageIO.read(new File(".\\FlappyBird\\src\\TwoPlayerButton.png"));
-            rulesButton = ImageIO.read(new File(".\\FlappyBird\\src\\RulesButton.png"));
-            backButton = ImageIO.read(new File(".\\FlappyBird\\src\\BackButton.png"));
-            startButton = ImageIO.read(new File(".\\FlappyBird\\src\\StartButton.png"));
-            gameOver = ImageIO.read(new File(".\\FlappyBird\\src\\gameOver.png"));
-            rules = ImageIO.read(new File(".\\FlappyBird\\src\\rules.png"));
+            title = ImageIO.read(new File(".\\src\\TitleScreen.png"));
+            background = ImageIO.read(new File(".\\src\\background.png"));
+            onePlayerButton = ImageIO.read(new File(".\\src\\OnePlayerButton.png"));
+            twoPlayerButton = ImageIO.read(new File(".\\src\\TwoPlayerButton.png"));
+            rulesButton = ImageIO.read(new File(".\\src\\RulesButton.png"));
+            backButton = ImageIO.read(new File(".\\src\\BackButton.png"));
+            startButton = ImageIO.read(new File(".\\src\\StartButton.png"));
+            gameOver = ImageIO.read(new File(".\\src\\gameOver.png"));
+            rules = ImageIO.read(new File(".\\src\\rules.png"));
 
             //top pipe is 1665 pixels long
             //top pipe is 94 pixels wide
@@ -119,16 +119,16 @@ public class FlappyBirdGame extends JPanel implements MouseListener, KeyListener
 
             //smaller bird is 106x78 pixels
 
-            bird = ImageIO.read(new File(".\\FlappyBird\\src\\Bird.png"));
-            bird2 = ImageIO.read(new File(".\\FlappyBird\\src\\Bird.png"));
-            pipe = ImageIO.read(new File(".\\FlappyBird\\src\\pipe.png"));
-            pipe2 = ImageIO.read(new File(".\\FlappyBird\\src\\pipe.png"));
-            pipe3 = ImageIO.read(new File(".\\FlappyBird\\src\\pipe.png"));
-            pipe4 = ImageIO.read(new File(".\\FlappyBird\\src\\pipe.png"));
+            bird = ImageIO.read(new File(".\\src\\Bird.png"));
+            bird2 = ImageIO.read(new File(".\\src\\Bird.png"));
+            pipe = ImageIO.read(new File(".\\src\\pipe.png"));
+            pipe2 = ImageIO.read(new File(".\\src\\pipe.png"));
+            pipe3 = ImageIO.read(new File(".\\src\\pipe.png"));
+            pipe4 = ImageIO.read(new File(".\\src\\pipe.png"));
 
-            point = new AudioStream(new FileInputStream(".\\FlappyBird\\src\\point.wav"));
-            swoosh = new AudioStream(new FileInputStream(".\\FlappyBird\\src\\swoosh.wav"));
-            die = new AudioStream(new FileInputStream(".\\FlappyBird\\src\\die.wav"));            
+            point = new AudioStream(new FileInputStream(".\\src\\point.wav"));
+            swoosh = new AudioStream(new FileInputStream(".\\src\\swoosh.wav"));
+            die = new AudioStream(new FileInputStream(".\\src\\die.wav"));            
         }
         catch (IOException e)
         {

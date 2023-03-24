@@ -16,8 +16,8 @@ public class SwitchPages_Blocks extends Blocks{
     public SwitchPages_Blocks(int x, int y, int lengthX, int lengthY) {
         super(x, y, lengthX, lengthY);
         try {
-            R = ImageIO.read(new File(".\\NotesAndRemindersApp\\src\\ScreenChoices\\Option1.png"));
-            N = ImageIO.read(new File(".\\NotesAndRemindersApp\\src\\ScreenChoices\\Option2.png"));
+            R = ImageIO.read(new File(".\\src\\ScreenChoices\\Option1.png"));
+            N = ImageIO.read(new File(".\\src\\ScreenChoices\\Option2.png"));
             cur = R;
         } catch(IOException e) {}
     }

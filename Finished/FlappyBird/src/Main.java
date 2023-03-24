@@ -1,4 +1,4 @@
-package FlappyBird.src;
+package Finished.FlappyBird.src;
 
 import javax.swing.JFrame;
 

@@ -1,4 +1,4 @@
-package TicTacToe.src;
+package Finished.TicTacToe.src;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -68,15 +68,15 @@ public class TicTacToe extends JPanel implements MouseListener, KeyListener{
         setFocusTraversalKeysEnabled(false);
         GameBackGround = new Image[12];
         try {
-            title = ImageIO.read(new File(".\\TicTacToe\\src\\randothing.png"));
-            P1 = ImageIO.read(new File(".\\TicTacToe\\src\\download.png"));
-            P2 = ImageIO.read(new File(".\\TicTacToe\\src\\download(1).png"));
+            title = ImageIO.read(new File(".\\src\\randothing.png"));
+            P1 = ImageIO.read(new File(".\\src\\download.png"));
+            P2 = ImageIO.read(new File(".\\src\\download(1).png"));
             String smth;
             for(int i=0; i<12; i++){
                 smth = "board"+i;
-                GameBackGround[i] = ImageIO.read(new File(".\\TicTacToe\\src\\"+smth+".png"));
+                GameBackGround[i] = ImageIO.read(new File(".\\src\\"+smth+".png"));
             }
-            click = new AudioStream(new FileInputStream(".\\TicTacToe\\src\\clicksound.wav"));
+            click = new AudioStream(new FileInputStream(".\\src\\clicksound.wav"));
         } catch(IOException e) {}
     }
     //paint screen
