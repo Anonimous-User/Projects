@@ -1,4 +1,4 @@
-package NotesAndRemindersApp.src;
+
 import java.awt.*;
 
 public class Blocks {

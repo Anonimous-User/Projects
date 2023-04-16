@@ -1,4 +1,4 @@
-package BrickBreaker.src;
+
 import javax.swing.JFrame;
 
 public class Main {

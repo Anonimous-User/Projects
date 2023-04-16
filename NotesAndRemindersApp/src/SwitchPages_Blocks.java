@@ -1,4 +1,4 @@
-package NotesAndRemindersApp.src;
+
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -13,8 +13,8 @@ public class SwitchPages_Blocks extends Blocks{
     private static Image R;
     private static Image N;
 
-    public SwitchPages_Blocks(int x, int y, int lengthX, int lengthY) {
-        super(x, y, lengthX, lengthY);
+    public SwitchPages_Blocks(int x) {
+        super(x, 0, 100, 50);
         try {
             R = ImageIO.read(new File(".\\src\\ScreenChoices\\Option1.png"));
             N = ImageIO.read(new File(".\\src\\ScreenChoices\\Option2.png"));

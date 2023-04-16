@@ -1,4 +1,4 @@
-package NotesAndRemindersApp.src;
+
 
 //reminder to put folder into FinalProjects folder once finished
 import java.awt.*;
@@ -26,7 +26,7 @@ public class App extends JPanel implements MouseListener, KeyListener{
     private static ArrayList<Notes> note = new ArrayList<Notes>();
     private static Screens screen = Screens.ReminderScreen;
     private static Timer timer = new Timer();
-    private static SwitchPages_Blocks switchBlock = new SwitchPages_Blocks(SizeWindowX-67, 0, 100, 50);
+    private static SwitchPages_Blocks switchPages = new SwitchPages_Blocks(SizeWindowX-67);
     
     //non-initialized variables
 
@@ -67,7 +67,10 @@ public class App extends JPanel implements MouseListener, KeyListener{
         remind.add(new Reminder("NEW REMINDER"));
 
         //used for testing purposes
-        Time.setTimeZone(Time.GetAllIDs()[Time.FindZoneID("EST")]);
+        Time.setTimeZone(Time.GetAllIDs()[Time.FindZoneID("est")]);
+        for(String i : Time.GetAllIDs()){
+            System.out.println(i);
+        }
         System.out.println(Time.GetAll());
         note.add(0, new Notes("note1"));
         note.add(0, new Notes("note2"));
@@ -178,7 +181,7 @@ public class App extends JPanel implements MouseListener, KeyListener{
         }
 
         //shared attributes for all pages
-        switchBlock.Display(SizeWindowX-117, g);
+        switchPages.Display(SizeWindowX-117, g);
     }
 
     private static int MouseX;
@@ -195,7 +198,7 @@ public class App extends JPanel implements MouseListener, KeyListener{
                 //enter edit mode for that reminder/note
                 for(Reminder r : remind){
                     if(r.Collide(MouseX, MouseY)){
-                        if(r.GetYear()==-1){
+                        if(r.isNew()){
                             remind.add(new Reminder("NEW REMINDER"));
                             back.UpdateReminder(remind);
                         }
@@ -219,7 +222,7 @@ public class App extends JPanel implements MouseListener, KeyListener{
                 break;
         }
 
-        if(switchBlock.Collide(MouseX, MouseY)){
+        if(switchPages.Collide(MouseX, MouseY)){
             switch(screen){
                 case ReminderScreen:
                     screen = Screens.NoteScreen;
@@ -228,7 +231,7 @@ public class App extends JPanel implements MouseListener, KeyListener{
                     screen = Screens.ReminderScreen;
                     break;
             }
-            switchBlock.ChangeScreen();
+            switchPages.ChangeScreen();
             repaint();
         }
 

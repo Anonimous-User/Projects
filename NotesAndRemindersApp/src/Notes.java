@@ -1,4 +1,4 @@
-package NotesAndRemindersApp.src;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ public class Notes extends JPanel{
     private int endY;
     private NoteEdit NE;
     private boolean isNew = true;
+    //make a block variable to tell if it's going to be deleted, put in DisplayNote(__, __)
 
     public Notes(String note){
         message = note;
