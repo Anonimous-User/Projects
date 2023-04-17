@@ -206,6 +206,7 @@ public class App extends JPanel implements MouseListener, KeyListener{
                         r.notNew();
                         break;
                     }
+                    r.Completed(MouseX, MouseY);
                 }
                 break;
             case NoteScreen:

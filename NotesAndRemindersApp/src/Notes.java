@@ -20,7 +20,7 @@ public class Notes extends JPanel{
     private int endY;
     private NoteEdit NE;
     private boolean isNew = true;
-    //make a block variable to tell if it's going to be deleted, put in DisplayNote(__, __)
+    private NoteCompleted_Block complete_block = new NoteCompleted_Block(8, 0);
 
     public Notes(String note){
         message = note;
@@ -38,6 +38,15 @@ public class Notes extends JPanel{
         endY = NoteY;
         y = endY - App.bodyFontSize;
         g.drawString(getNote(), x, NoteY);
+        complete_block.UpdateYCoord(y+13);
+        if(!isNew){
+            complete_block.Display(g);
+        }
+    }
+    public void Completed(int MouseX, int MouseY){
+        if(complete_block.Collide(MouseX, MouseY)){
+            complete_block.CheckOff();
+        }
     }
     public boolean Collide(int MouseX, int MouseY){
         //System.out.println(x+" "+endX+" "+y+" "+endY);
