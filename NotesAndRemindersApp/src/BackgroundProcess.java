@@ -2,10 +2,10 @@
 
 import java.util.ArrayList;
 
-public class BackgroundProcess extends Thread{
+class BackgroundProcess extends Thread{
     private ArrayList<Reminder> rems;
 
-    public BackgroundProcess(){
+    BackgroundProcess(){
         rems = new ArrayList<Reminder>();
     }
 

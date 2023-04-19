@@ -4,9 +4,10 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
 
 public class NoteCompleted_Block extends Blocks{
-
+    private Timer time = new Timer();
     private boolean check = false;
 
     public NoteCompleted_Block(int x, int y) {

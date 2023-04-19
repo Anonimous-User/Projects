@@ -3,13 +3,15 @@
 //reminder to put folder into FinalProjects folder once finished
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.Timer;
+
 import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
-import java.util.Timer;
+// import java.util.Timer;
 
-public class App extends JPanel implements MouseListener, KeyListener{
+public class App extends JPanel implements MouseListener, ActionListener, KeyListener{
 
     enum Screens{
         ReminderScreen,
@@ -21,14 +23,14 @@ public class App extends JPanel implements MouseListener, KeyListener{
     public static JFrame frame = Start.Mainframe;
     public static int SizeWindowX = 900;
     public static int SizeWindowY = 900;
-    public static BackgroundProcess back = new BackgroundProcess();
     private static ArrayList<Reminder> remind = new ArrayList<Reminder>();
     private static ArrayList<Notes> note = new ArrayList<Notes>();
     private static Screens screen = Screens.ReminderScreen;
-    private static Timer timer = new Timer();
     private static SwitchPages_Blocks switchPages = new SwitchPages_Blocks(SizeWindowX-67);
     
     //non-initialized variables
+    public static BackgroundProcess back;
+    private static Timer timer;
 
 
 
@@ -39,18 +41,6 @@ public class App extends JPanel implements MouseListener, KeyListener{
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         Time.SortIDs();
-        
-        //DO NOT TOUCH
-        //Runs in background on seperate thread, runs once every second
-        back.start();
-        TimerTask tasks = new TimerTask() {
-            public void run() {
-                back.run();
-                repaint();
-            }
-        };
-        timer = new Timer();
-        timer.schedule(tasks, 1000, 1000);
 
         //create and using Lobster font
         try {
@@ -61,6 +51,11 @@ public class App extends JPanel implements MouseListener, KeyListener{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //DO NOT TOUCH
+        //Runs in background on seperate thread, runs once every second
+        back = new BackgroundProcess();
+        timer = new Timer(1000, (ActionListener) this);
 
         //Sets new note and new reminder "buttons" as the end
         note.add(new Notes("NEW NOTE"));
@@ -92,8 +87,9 @@ public class App extends JPanel implements MouseListener, KeyListener{
         Reminder r2 = new Reminder("Test upcoming2", "2022-12-29", "00:00:00");
         r2.notNew();
         remind.add(0, r2);
-        back.UpdateReminder(remind);
 
+
+        back.UpdateReminder(remind);
     }
 
     public void RemoveReminder(Reminder rem){
@@ -163,6 +159,8 @@ public class App extends JPanel implements MouseListener, KeyListener{
     }
 
     public void paint(Graphics g){
+        
+        back.start();
         //gets new dimensions everytime the window is adjusted
         SizeWindowX = frame.getWidth();
         SizeWindowY = frame.getHeight();
@@ -219,6 +217,7 @@ public class App extends JPanel implements MouseListener, KeyListener{
                         n.notNew();
                         break;
                     }
+                    n.Completed(MouseX, MouseY);
                 }
                 break;
         }
@@ -262,4 +261,10 @@ public class App extends JPanel implements MouseListener, KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+    }
 }
