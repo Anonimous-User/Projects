@@ -17,12 +17,14 @@ public class Reminder extends Notes{
     public Reminder(String note){
         super(note);
         isRem();
+        deletionOrganizerIsRem();
         //symbolizes new reminder button
         year = -1;
     }
     public Reminder(String note, String date, String time){
         super(note);
         isRem();
+        deletionOrganizerIsRem();
         AddFlag(date, time);
     }
     

@@ -2,14 +2,15 @@
 
 //reminder to put folder into FinalProjects folder once finished
 import java.awt.*;
+
+import javax.management.Notification;
 import javax.swing.*;
-import javax.swing.Timer;
 
 import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
-// import java.util.Timer;
+import java.util.Timer;
 
 public class App extends JPanel implements MouseListener, ActionListener, KeyListener{
 
@@ -23,14 +24,21 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     public static JFrame frame = Start.Mainframe;
     public static int SizeWindowX = 900;
     public static int SizeWindowY = 900;
-    private static ArrayList<Reminder> remind = new ArrayList<Reminder>();
-    private static ArrayList<Notes> note = new ArrayList<Notes>();
+    public static BackgroundProcess back = new BackgroundProcess();
+    public static ArrayList<Reminder> remind = new ArrayList<Reminder>();
+    public static ArrayList<Notes> note = new ArrayList<Notes>();
     private static Screens screen = Screens.ReminderScreen;
     private static SwitchPages_Blocks switchPages = new SwitchPages_Blocks(SizeWindowX-67);
+    //sizes for texts
+    public static int rightShift = 10;
+    public static int headerFontSize = 75;
+    public static int bodyFontSize = 40;
+    public static int indentSize = 30 + rightShift;
     
     //non-initialized variables
-    public static BackgroundProcess back;
     private static Timer timer;
+    private static int MouseX;
+    private static int MouseY;
 
 
 
@@ -52,14 +60,25 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
             e.printStackTrace();
         }
 
-        //DO NOT TOUCH
-        //Runs in background on seperate thread, runs once every second
-        back = new BackgroundProcess();
-        timer = new Timer(1000, (ActionListener) this);
+        TimerTaskOrganizer notifications = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.Notifications, 0, 1000);
+        notifications.run();
+        TimerTask renewUI = new TimerTask() {
+            public void run() {
+                repaint();
+            }
+        };
+        timer = new Timer();
+        timer.schedule(renewUI, 100, 100);
 
         //Sets new note and new reminder "buttons" as the end
         note.add(new Notes("NEW NOTE"));
         remind.add(new Reminder("NEW REMINDER"));
+
+
+
+
+
+
 
         //used for testing purposes
         Time.setTimeZone(Time.GetAllIDs()[Time.FindZoneID("est")]);
@@ -87,34 +106,9 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         Reminder r2 = new Reminder("Test upcoming2", "2022-12-29", "00:00:00");
         r2.notNew();
         remind.add(0, r2);
-
-
         back.UpdateReminder(remind);
-    }
-
-    public void RemoveReminder(Reminder rem){
-        for(int i=0; i<remind.size(); i++){
-            if(remind.get(i).equals(rem)){
-                remind.remove(i);
-                return;
-            }
-        }
-        back.UpdateReminder(remind);
-    }
-    public void RemoveNote(Notes rem){
-        for(int i=0; i<note.size(); i++){
-            if(note.get(i).equals(rem)){
-                note.remove(i);
-                return;
-            }
-        }
     }
     
-    //declare sizes
-    public static int rightShift = 10;
-    public static int headerFontSize = 75;
-    public static int bodyFontSize = 40;
-    public static int indentSize = 30 + rightShift;
     
     //TODO: Make the page scrollable(or have a max line count)
     public void RemindersPage(Graphics g){
@@ -159,8 +153,6 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     }
 
     public void paint(Graphics g){
-        
-        back.start();
         //gets new dimensions everytime the window is adjusted
         SizeWindowX = frame.getWidth();
         SizeWindowY = frame.getHeight();
@@ -182,8 +174,6 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         switchPages.Display(SizeWindowX-117, g);
     }
 
-    private static int MouseX;
-    private static int MouseY;
     @Override
     public void mousePressed(MouseEvent e){
         MouseX = e.getX();
@@ -204,7 +194,14 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
                         r.notNew();
                         break;
                     }
-                    r.Completed(MouseX, MouseY);
+                    if(r.Completed(MouseX, MouseY)){
+                        if(r.getStateCompletion()){
+                            r.startDeletionProcess();
+                        } else{
+                            r.endDeletionProcess();
+                        }
+                        break;
+                    }
                 }
                 break;
             case NoteScreen:
@@ -217,7 +214,14 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
                         n.notNew();
                         break;
                     }
-                    n.Completed(MouseX, MouseY);
+                    if(n.Completed(MouseX, MouseY)){
+                        if(n.getStateCompletion()){
+                            n.startDeletionProcess();
+                        } else{
+                            n.endDeletionProcess();
+                        }
+                        break;
+                    }
                 }
                 break;
         }
@@ -263,8 +267,5 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     public void keyReleased(KeyEvent e) {}
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-    }
+    public void actionPerformed(ActionEvent e) {}
 }

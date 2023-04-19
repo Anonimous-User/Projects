@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class NoteCompleted_Block extends Blocks{
     private Timer time = new Timer();
@@ -16,8 +17,11 @@ public class NoteCompleted_Block extends Blocks{
     public void UpdateYCoord(int newY){
         y = newY;
     }
-    public void CheckOff(){
-        check = true;
+    public void Interact(){
+        check = !check;
+    }
+    public boolean getCheckState(){
+        return check;
     }
     public void Display(Graphics g){
         if(check){

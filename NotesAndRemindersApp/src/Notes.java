@@ -20,12 +20,16 @@ public class Notes extends JPanel{
     private int endY;
     private NoteEdit NE;
     private boolean isNew = true;
-    private NoteCompleted_Block complete_block = new NoteCompleted_Block(8, 0);
+    private NoteCompleted_Block complete_block;
+    private TimerTaskOrganizer deletionOrganizer;
 
     public Notes(String note){
         message = note;
         NE = new NoteEdit(this);
         x = App.rightShift;
+        complete_block = new NoteCompleted_Block(8, 0);
+        deletionOrganizer = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.NoteDeletion, 10*1000, 0);
+        deletionOrganizer.addNote(this);
     }
     public String getNote(){
         return message;
@@ -43,11 +47,28 @@ public class Notes extends JPanel{
             complete_block.Display(g);
         }
     }
-    public void Completed(int MouseX, int MouseY){
+
+    public boolean Completed(int MouseX, int MouseY){
         if(complete_block.Collide(MouseX, MouseY)){
-            complete_block.CheckOff();
+            complete_block.Interact();
+            return true;
         }
+        return false;
     }
+    public boolean getStateCompletion(){
+        return complete_block.getCheckState();
+    }
+    public void deletionOrganizerIsRem(){
+        deletionOrganizer = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.ReminderDeletion, 10*1000, 0);
+        deletionOrganizer.addReminder((Reminder) this);
+    }
+    public void startDeletionProcess(){
+        deletionOrganizer.run();
+    }
+    public void endDeletionProcess(){
+        deletionOrganizer.stop();
+    }
+
     public boolean Collide(int MouseX, int MouseY){
         //System.out.println(x+" "+endX+" "+y+" "+endY);
         if(!(MouseX>=x&&MouseX<=endX)){
