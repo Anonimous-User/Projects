@@ -3,30 +3,34 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.*;
-//https://stackoverflow.com/questions/21955256/manipulating-an-access-database-from-java-without-odbc
 
 public class Database {
 
-    //TODO: HELP!?!?
-
     private static Connection connection;
     
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		try {
 			initDatabaseConnection();
+			try (PreparedStatement prep = connection.prepareStatement(
+				"INSERT INTO test(testColomb) VALUES (100)"
+				)) {
+			 	prep.executeQuery();
+		  	}
 
-		} finally {
-			if (connection != null) {
-				closeDatabaseConnection();
-			}
+			
+		} finally{
+			try (PreparedStatement prep = connection.prepareStatement(
+                  "DELETE FROM test")) {
+               prep.executeQuery();
+            }
 		}
 	}
 
 	private static void initDatabaseConnection() throws SQLException {
 		System.out.println("Connecting to the database...");
 		connection = DriverManager.getConnection(
-				"jdbc:mariadb://localhost:3306/demo",
-				"user", "password");
+				"jdbc:mariadb://localhost:3306/NotesAndRemindersDB",
+				"User", "LocalUser");
 		System.out.println("Connection valid: " + connection.isValid(5));
 	}
 
