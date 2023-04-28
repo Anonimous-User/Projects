@@ -1,4 +1,4 @@
-Work on database/filewriting
+Test database functions, make database accessible for remote user
 Allow user to choose timezone
 If homepage has too many notes/reminders, allow user to scroll
 Work on sorting system when on homepage (Reminder: likely by deadline  ||  Note: likely allow user to rearrange)

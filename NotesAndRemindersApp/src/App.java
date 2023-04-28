@@ -6,9 +6,12 @@ import java.awt.*;
 import javax.management.Notification;
 import javax.swing.*;
 
+import javafx.scene.chart.PieChart.Data;
+
 import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.Timer;
 
@@ -72,9 +75,25 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
 
         //Sets new note and new reminder "buttons" as the end
         note.add(new Notes("NEW NOTE"));
+        note.get(0).setNew();
         remind.add(new Reminder("NEW REMINDER"));
+        remind.get(0).setNew();
 
-
+        //Retrieve data from database and store into the right array
+        try {
+            Database.initDatabaseConnection();
+            for(String[] arr : Database.retrieveData()){
+                if(arr[1] == null||arr[2] == null){
+                    remind.add(new Reminder(arr[0], arr[1], arr[2]));
+                } else{
+                    note.add(new Notes(arr[0]));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        back.UpdateReminder(remind);
+        
 
 
 
@@ -86,27 +105,20 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
             System.out.println(i);
         }
         System.out.println(Time.GetAll());
-        note.add(0, new Notes("note1"));
-        note.add(0, new Notes("note2"));
-        note.get(0).notNew();
-        note.get(1).notNew();
-        String testdate = "2023-01-01";
-        String testtime = "13:24:23.982";
-        remind.add(0, new Reminder("remind2", testdate, testtime));
-        remind.get(0).notNew();
-        Reminder r = new Reminder("TEST", "2022-12-31", "23:59:99");
-        r.notNew();
-        remind.add(0, r);
-        Reminder r1 = new Reminder("Test upcoming1", "2022-12-31", "00:00:00");
-        r1.notNew();
-        remind.add(0, r1);
-        Reminder r3 = new Reminder("FIX REMINDER CHECK METHOD", "2022-12-29", "23:59:99");
-        r3.notNew();
-        remind.add(0, r3);
-        Reminder r2 = new Reminder("Test upcoming2", "2022-12-29", "00:00:00");
-        r2.notNew();
-        remind.add(0, r2);
-        back.UpdateReminder(remind);
+        // note.add(0, new Notes("note1"));
+        // note.add(0, new Notes("note2"));
+        // String testdate = "2023-01-01";
+        // String testtime = "13:24:23.982";
+        // remind.add(0, new Reminder("remind2", testdate, testtime));
+        // Reminder r = new Reminder("TEST", "2022-12-31", "23:59:99");
+        // remind.add(0, r);
+        // Reminder r1 = new Reminder("Test upcoming1", "2022-12-31", "00:00:00");
+        // remind.add(0, r1);
+        // Reminder r3 = new Reminder("FIX REMINDER CHECK METHOD", "2022-12-29", "23:59:99");
+        // remind.add(0, r3);
+        // Reminder r2 = new Reminder("Test upcoming2", "2022-12-29", "00:00:00");
+        // remind.add(0, r2);
+        // back.UpdateReminder(remind);
     }
     
     
@@ -187,11 +199,17 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
                 for(Reminder r : remind){
                     if(r.Collide(MouseX, MouseY)){
                         if(r.isNew()){
-                            remind.add(new Reminder("NEW REMINDER"));
+                            Reminder newNewReminder = new Reminder("NEW REMINDER");
+                            newNewReminder.setNew();
+                            remind.add(newNewReminder);
                             back.UpdateReminder(remind);
                         }
                         r.editNote();
-                        r.notNew();
+                        try{
+                            r.endDeletionProcess();
+                            r.changeStateCompletion();
+                        } catch(NullPointerException e1){}
+                        r.setNotNew();
                         break;
                     }
                     if(r.Completed(MouseX, MouseY)){
@@ -208,10 +226,16 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
                 for(Notes n : note){
                     if(n.Collide(MouseX, MouseY)){
                         if(n.isNew()){
-                            note.add(new Notes("NEW NOTE"));
+                            Notes newNewNote = new Notes("NEW NOTE");
+                            newNewNote.setNew();
+                            note.add(newNewNote);
                         }
                         n.editNote();
-                        n.notNew();
+                        try{
+                            n.endDeletionProcess();
+                            n.changeStateCompletion();
+                        } catch(NullPointerException e1){}
+                        n.setNotNew();
                         break;
                     }
                     if(n.Completed(MouseX, MouseY)){
@@ -259,6 +283,18 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            try {
+                Database.clearData();
+                for(Notes n : note){
+                    Database.insertData(n.getNote());
+                }
+                for(Reminder r : remind){
+                    Database.insertData(r.getNote(), r.GetDate(), r.GetTime());
+                }
+                Database.closeDatabaseConnection();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
             System.exit(0);
         }
     }

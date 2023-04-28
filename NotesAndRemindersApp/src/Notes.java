@@ -19,14 +19,14 @@ public class Notes extends JPanel{
     private int y;
     private int endY;
     private NoteEdit NE;
-    private boolean isNew = true;
+    private boolean isNew = false;
     private NoteCompleted_Block complete_block;
     private TimerTaskOrganizer deletionOrganizer;
 
     public Notes(String note){
         message = note;
         NE = new NoteEdit(this);
-        x = App.rightShift;
+        x = App.indentSize;
         complete_block = new NoteCompleted_Block(8, 0);
         deletionOrganizer = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.NoteDeletion, 10*1000, 0);
         deletionOrganizer.addNote(this);
@@ -58,6 +58,9 @@ public class Notes extends JPanel{
     public boolean getStateCompletion(){
         return complete_block.getCheckState();
     }
+    public void changeStateCompletion(){
+        complete_block.Interact();
+    }
     public void deletionOrganizerIsRem(){
         deletionOrganizer = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.ReminderDeletion, 10*1000, 0);
         deletionOrganizer.addReminder((Reminder) this);
@@ -83,7 +86,11 @@ public class Notes extends JPanel{
     public boolean isNew(){
         return isNew;
     }
-    public void notNew(){
+    public void setNew(){
+        x = App.rightShift;
+        isNew = true;
+    }
+    public void setNotNew(){
         x = App.indentSize;
         isNew = false;
     }
