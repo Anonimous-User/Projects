@@ -73,27 +73,31 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         timer = new Timer();
         timer.schedule(renewUI, 100, 100);
 
-        //Sets new note and new reminder "buttons" as the end
-        note.add(new Notes("NEW NOTE"));
-        note.get(0).setNew();
-        remind.add(new Reminder("NEW REMINDER"));
-        remind.get(0).setNew();
-
         //Retrieve data from database and store into the right array
         try {
             Database.initDatabaseConnection();
             for(String[] arr : Database.retrieveData()){
                 if(arr[1] == null||arr[2] == null){
-                    remind.add(new Reminder(arr[0], arr[1], arr[2]));
+                    Notes newNote = new Notes(arr[0]);
+                    newNote.setNotNew();
+                    note.add(newNote);
                 } else{
-                    note.add(new Notes(arr[0]));
+                    Reminder newReminder = new Reminder(arr[0], arr[1], arr[2]);
+                    newReminder.setNotNew();
+                    remind.add(newReminder);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        back.UpdateReminder(remind);
+
+        //Sets new note and new reminder "buttons" as the end
+        note.add(new Notes("NEW NOTE"));
+        note.get(note.size()-1).setNew();
+        remind.add(new Reminder("NEW REMINDER"));
+        remind.get(remind.size()-1).setNew();
         
+        back.UpdateReminder(remind);
 
 
 
@@ -104,7 +108,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         for(String i : Time.GetAllIDs()){
             System.out.println(i);
         }
-        System.out.println(Time.GetAll());
+        // System.out.println(Time.GetAll());
         // note.add(0, new Notes("note1"));
         // note.add(0, new Notes("note2"));
         // String testdate = "2023-01-01";
@@ -285,6 +289,8 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
             try {
                 Database.clearData();
+                note.remove(note.size()-1);
+                remind.remove(remind.size()-1);
                 for(Notes n : note){
                     Database.insertData(n.getNote());
                 }

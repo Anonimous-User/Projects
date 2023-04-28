@@ -70,7 +70,7 @@ public class Database {
 					rtn.get(i)[1] = resultSet.getString("Date");
 					rtn.get(i)[2] = resultSet.getString("Time");
 
-					System.out.println("\t> " + rtn.get(i)[0] + " . " + rtn.get(i)[2] + " : " + rtn.get(i)[3]);
+					// System.out.println("\t> " + rtn.get(i)[0] + " . " + rtn.get(i)[1] + " : " + rtn.get(i)[2]);
 					i++;
 				}
 				if (empty) {
