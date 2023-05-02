@@ -42,6 +42,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     private static Timer timer;
     private static int MouseX;
     private static int MouseY;
+    private static JComboBox<String> timeZoneSelection;
 
 
 
@@ -88,7 +89,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
 
         //Sets new note and new reminder "buttons" as the end
@@ -101,13 +102,24 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
 
 
 
-
+        timeZoneSelection = new JComboBox<String>(Time.GetAllIDs());
+        timeZoneSelection.setEditable(true);
+        timeZoneSelection.setSelectedItem("EST");
+        timeZoneSelection.setBounds(200, 200, 160, 25);
+        timeZoneSelection.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Time.setTimeZone((String)timeZoneSelection.getSelectedItem());
+            }
+        });
+        frame.add(timeZoneSelection);
+        frame.add(this);
 
         //used for testing purposes
-        Time.setTimeZone(Time.GetAllIDs()[Time.FindZoneID("est")]);
-        for(String i : Time.GetAllIDs()){
-            System.out.println(i);
-        }
+        Time.setTimeZone((String)timeZoneSelection.getSelectedItem());
+        // for(String i : Time.GetAllIDs()){
+        //     System.out.println(i);
+        // }
         // System.out.println(Time.GetAll());
         // note.add(0, new Notes("note1"));
         // note.add(0, new Notes("note2"));
