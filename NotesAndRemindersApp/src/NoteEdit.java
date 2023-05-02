@@ -45,6 +45,7 @@ public class NoteEdit extends JPanel implements MouseListener{
         JComboBox<String> mins = new JComboBox<String>(Time.GetMinutesInHour());
         ReminderTimes.add(mins);
 
+        //switch number of days in a month when month box is changed
         mths.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,6 +53,7 @@ public class NoteEdit extends JPanel implements MouseListener{
                 days.setModel(model);
             }
         });
+        //switch number of days in febuary when year box is changed(Leap year)
         yrs.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -128,8 +130,9 @@ public class NoteEdit extends JPanel implements MouseListener{
             Texts.setBounds(0, App.headerFontSize, SizeWindowX, SizeWindowY-App.headerFontSize);
         }
     }
-
+    
     public void SetReminderTime(Graphics g){
+        System.out.println("hi");
         g.setFont(App.Lobster);
         g.drawString("Time", App.indentSize, (int) (App.headerFontSize*2.25+((SizeWindowY-App.headerFontSize)/2)));
 
