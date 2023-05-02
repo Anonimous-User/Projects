@@ -101,7 +101,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         back.UpdateReminder(remind);
 
 
-
+        SettingsBar settings = new SettingsBar();
         timeZoneSelection = new JComboBox<String>(Time.GetAllIDs());
         timeZoneSelection.setEditable(true);
         timeZoneSelection.setSelectedItem("EST");
@@ -311,6 +311,8 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
                 }
                 Database.closeDatabaseConnection();
             } catch (SQLException e1) {
+                e1.printStackTrace();
+            } catch (NullPointerException e1){
                 e1.printStackTrace();
             }
             System.exit(0);

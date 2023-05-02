@@ -22,7 +22,7 @@ public class Database {
 		}
 		catch(SQLException e){
             e.printStackTrace();
-			closeDatabaseConnection();
+			// closeDatabaseConnection();
 		}
 		finally{
 			// try (PreparedStatement prep = connection.prepareStatement(
@@ -37,6 +37,10 @@ public class Database {
 			"DELETE FROM testuser"
 		)) {
 			statement.executeQuery();
+		} catch (SQLException e){
+			e.printStackTrace();
+		} catch(NullPointerException e){
+			e.printStackTrace();
 		}
 	}
 

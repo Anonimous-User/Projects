@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class NoteEdit extends JPanel implements MouseListener{
+public class NoteEdit extends JPanel{
     private JFrame NoteFrame = new JFrame();
     private int SizeWindowX = 700;
     private int SizeWindowY = 600;
@@ -26,7 +26,6 @@ public class NoteEdit extends JPanel implements MouseListener{
         SetUp();
     }
     private void SetUp(){
-        addMouseListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         Texts = new TextArea();
@@ -162,19 +161,4 @@ public class NoteEdit extends JPanel implements MouseListener{
         NoteFrame.add(this);
         //TODO: Make a usable calendar instead if it makes it easier/more user-friendly
     }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {}
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
 }
