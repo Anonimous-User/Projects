@@ -131,7 +131,6 @@ public class NoteEdit extends JPanel{
     }
     
     public void SetReminderTime(Graphics g){
-        System.out.println("hi");
         g.setFont(App.Lobster);
         g.drawString("Time", App.indentSize, (int) (App.headerFontSize*2.25+((SizeWindowY-App.headerFontSize)/2)));
 

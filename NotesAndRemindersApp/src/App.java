@@ -102,6 +102,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
 
 
         SettingsBar settings = new SettingsBar();
+        settings.main();
         timeZoneSelection = new JComboBox<String>(Time.GetAllIDs());
         timeZoneSelection.setEditable(true);
         timeZoneSelection.setSelectedItem("EST");
