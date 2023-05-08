@@ -43,6 +43,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     private static int MouseX;
     private static int MouseY;
     private static JComboBox<String> timeZoneSelection;
+    private static SettingsBar settings;
 
 
 
@@ -101,27 +102,15 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         back.UpdateReminder(remind);
 
 
-        SettingsBar settings = new SettingsBar();
-        settings.main();
-        timeZoneSelection = new JComboBox<String>(Time.GetAllIDs());
-        timeZoneSelection.setEditable(true);
-        timeZoneSelection.setSelectedItem("EST");
-        timeZoneSelection.setBounds(200, 200, 160, 25);
-        timeZoneSelection.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Time.setTimeZone((String)timeZoneSelection.getSelectedItem());
-            }
-        });
-        frame.add(timeZoneSelection);
-        frame.add(this);
+        settings = new SettingsBar();
 
         //used for testing purposes
-        Time.setTimeZone((String)timeZoneSelection.getSelectedItem());
+        // Time.setTimeZone((String)timeZoneSelection.getSelectedItem());
         // for(String i : Time.GetAllIDs()){
         //     System.out.println(i);
         // }
-        // System.out.println(Time.GetAll());
+        System.out.println(Time.GetAll());
+        System.out.println(Time.GetDefault());
         // note.add(0, new Notes("note1"));
         // note.add(0, new Notes("note2"));
         // String testdate = "2023-01-01";
@@ -199,6 +188,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
                 break;
         }
 
+        settings.Display(g);
         //shared attributes for all pages
         switchPages.Display(SizeWindowX-117, g);
     }
@@ -278,6 +268,9 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
             }
             switchPages.ChangeScreen();
             repaint();
+        }
+        if(settings.Collide(MouseX, MouseY)){
+            settings.main();
         }
 
     }

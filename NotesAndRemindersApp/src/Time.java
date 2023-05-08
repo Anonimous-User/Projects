@@ -1,8 +1,10 @@
 
 
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.spi.TimeZoneNameProvider;
 
 public class Time {
     private static SimpleDateFormat sdf;
@@ -18,28 +20,12 @@ public class Time {
         mergeSort(IDOfTimeZones, 0, IDOfTimeZones.length-1);
     }
 
+    public static ZoneId GetDefault(){
+        return tZone.getDefault().toZoneId();
+    }
 
     public static String[] GetAllIDs(){
         return IDOfTimeZones;
-    }
-
-    
-    public static int FindZoneID(String key) {
-        key = key.toUpperCase();
-        int l = 0;
-        int h = IDOfTimeZones.length - 1;
-        int m;
-        while (l <= h) {
-            m = (l + h) / 2;
-            if (IDOfTimeZones[m].equals(key)) {
-                return m;
-            } else if (IDOfTimeZones[m].compareTo(key) < 0) {
-                l = m + 1;
-            } else {
-                h = m - 1;
-            }
-        }
-        return -1;       
     }
 
 
@@ -51,6 +37,14 @@ public class Time {
     }
 
 
+    public static String GetID(){
+        return tZone.getID();
+    }
+    public static String GetZone(){
+        sdf = new SimpleDateFormat("z");
+        date = new Date();
+        return sdf.format(date);
+    }
     public static String GetAll(){
         sdf = new SimpleDateFormat("E yyyy-MM-dd HH:mm:ss.SS z Z");
         date = new Date();
@@ -63,11 +57,6 @@ public class Time {
     }
     public static String GetDate(){
         sdf = new SimpleDateFormat("yyyy-MM-dd");
-        date = new Date();
-        return sdf.format(date);
-    }
-    public static String GetZone(){
-        sdf = new SimpleDateFormat("z");
         date = new Date();
         return sdf.format(date);
     }

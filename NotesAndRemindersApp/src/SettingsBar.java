@@ -7,46 +7,54 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.omg.CORBA.Current;
+
 public class SettingsBar extends JPanel{
 
     private JFrame frame;
     public JComboBox<String> timeZoneSelection;
     private int SizeWindowX = 300;
     private int SizeWindowY = 600;
-    private String CurrentTimeZone = "EST";
+    private String CurrentTimeZone = Time.GetZone();
+    private int StartX = App.SizeWindowX/3*2-50;
+    private int SizeX = 50;
+    private int SizeY = 50;
 
     public SettingsBar() {
         frame = new JFrame();
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
-        frame.setBounds(0, 0, 300, 500);
-        frame.setTitle("");
-        frame.setResizable(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initTimeZoneSettings();
     }
 
     public void initTimeZoneSettings(){
         timeZoneSelection = new JComboBox<String>(Time.GetAllIDs());
         timeZoneSelection.setEditable(true);
-        timeZoneSelection.setBounds(50, 100, 160, 30);
-        timeZoneSelection.setSelectedItem(CurrentTimeZone);
+        timeZoneSelection.setSelectedItem(Time.GetZone());
+        timeZoneSelection.setBounds(55, 100, 160, 30);
+        Time.setTimeZone(((String)timeZoneSelection.getSelectedItem()).toUpperCase());
+        frame.add(timeZoneSelection);
+        frame.add(this);
         timeZoneSelection.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                Time.setTimeZone((String)timeZoneSelection.getSelectedItem());
-                CurrentTimeZone = (String)timeZoneSelection.getSelectedItem();
+                Time.setTimeZone(((String)timeZoneSelection.getSelectedItem()).toUpperCase());
+                CurrentTimeZone = Time.GetID();
             }
         });
     }
 
+    public void Display(Graphics g){
+        g.drawRect(StartX, 0, SizeX, SizeY);
+    }
+
     public boolean Collide(int MouseX, int MouseY){
-        // if(!(MouseX>=x&&MouseX<=endX)){
-        //     return false;
-        // }
-        // if(!(MouseY>=y&&MouseY<=endY)){
-        //     return false;
-        // }
+        if(!(MouseX>=StartX&&MouseX<=StartX+SizeX)){
+            return false;
+        }
+        if(!(MouseY>=0&&MouseY<=SizeY)){
+            return false;
+        }
         return true;
     }
 
@@ -70,9 +78,6 @@ public class SettingsBar extends JPanel{
         g.setFont(App.Lobster);
         g.setColor(Color.BLACK);
         g.drawString("Settings", App.rightShift, App.headerFontSize);
-        timeZoneSelection.setBounds(50, 150, 160, 30);
-        frame.add(timeZoneSelection);
-        frame.add(this);
     }
     
 }
