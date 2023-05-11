@@ -1,13 +1,7 @@
 
 
-//reminder to put folder into FinalProjects folder once finished
 import java.awt.*;
-
-import javax.management.Notification;
 import javax.swing.*;
-
-import javafx.scene.chart.PieChart.Data;
-
 import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -42,12 +36,10 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     private static Timer timer;
     private static int MouseX;
     private static int MouseY;
-    private static JComboBox<String> timeZoneSelection;
     private static SettingsBar settings;
 
 
 
-    //TODO: Make new file to store reminder and notes if it doesn't exist; Sets up rest of program
     public App(){
         addMouseListener(this);
         addKeyListener(this);
@@ -110,21 +102,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         //     System.out.println(i);
         // }
         System.out.println(Time.GetAll());
-        System.out.println(Time.GetDefault());
-        // note.add(0, new Notes("note1"));
-        // note.add(0, new Notes("note2"));
-        // String testdate = "2023-01-01";
-        // String testtime = "13:24:23.982";
-        // remind.add(0, new Reminder("remind2", testdate, testtime));
-        // Reminder r = new Reminder("TEST", "2022-12-31", "23:59:99");
-        // remind.add(0, r);
-        // Reminder r1 = new Reminder("Test upcoming1", "2022-12-31", "00:00:00");
-        // remind.add(0, r1);
-        // Reminder r3 = new Reminder("FIX REMINDER CHECK METHOD", "2022-12-29", "23:59:99");
-        // remind.add(0, r3);
-        // Reminder r2 = new Reminder("Test upcoming2", "2022-12-29", "00:00:00");
-        // remind.add(0, r2);
-        // back.UpdateReminder(remind);
+        System.out.println(Time.GetZone());
     }
     
     
@@ -149,7 +127,16 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         }
     }
 
-    
+    public static void renewReminderTime(int changeInHour, int changeInMinute){
+        for(Reminder r : remind){
+            //order doesn't matter
+            int newTime = r.GetHour() + changeInHour;
+            r.ModifyHour(newTime);
+            newTime = r.GetMinute() + changeInMinute;
+            r.ModifyMinute(newTime);
+        }
+    }
+
     public void NotesPage(Graphics g){
         //sets color
         g.setColor(Color.BLACK);

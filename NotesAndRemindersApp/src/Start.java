@@ -4,8 +4,6 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
-import javafx.stage.WindowEvent;
-
 public class Start {
     
     public static JFrame Mainframe = new JFrame();

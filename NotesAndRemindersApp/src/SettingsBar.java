@@ -2,17 +2,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.omg.CORBA.Current;
+//TODO: save current setting to text file?
 
 public class SettingsBar extends JPanel{
 
     private JFrame frame;
-    public JComboBox<String> timeZoneSelection;
+    private JComboBox<String> timeZoneSelection;
     private int SizeWindowX = 300;
     private int SizeWindowY = 600;
     private String CurrentTimeZone = Time.GetZone();
@@ -30,16 +29,25 @@ public class SettingsBar extends JPanel{
     public void initTimeZoneSettings(){
         timeZoneSelection = new JComboBox<String>(Time.GetAllIDs());
         timeZoneSelection.setEditable(true);
-        timeZoneSelection.setSelectedItem(Time.GetZone());
+        timeZoneSelection.setSelectedItem(CurrentTimeZone);
         timeZoneSelection.setBounds(55, 100, 160, 30);
-        Time.setTimeZone(((String)timeZoneSelection.getSelectedItem()).toUpperCase());
         frame.add(timeZoneSelection);
+
         frame.add(this);
         timeZoneSelection.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                Time.setTimeZone(((String)timeZoneSelection.getSelectedItem()).toUpperCase());
+                String selected = ((String)timeZoneSelection.getSelectedItem()).toUpperCase();
+                int changeHour = Integer.parseInt(Time.GetTimeDifference().substring(1, 3));
+                int changeMinute = Integer.parseInt(Time.GetTimeDifference().substring(3, 5));
+                System.out.println(changeHour);
+
+                Time.setTimeZone(selected);
                 CurrentTimeZone = Time.GetID();
+
+                changeHour = changeHour - Integer.parseInt(Time.GetTimeDifference().substring(1, 3));
+                changeMinute = changeMinute - Integer.parseInt(Time.GetTimeDifference().substring(3, 5));
+                App.renewReminderTime(changeHour, changeMinute);
             }
         });
     }
@@ -60,7 +68,6 @@ public class SettingsBar extends JPanel{
 
     public void main(){
         frame.setBounds(0, 0, SizeWindowX, SizeWindowY);
-        timeZoneSelection.setSelectedItem(CurrentTimeZone);
         frame.setBounds(0, 0, SizeWindowX, SizeWindowY);
         frame.setTitle("");
         frame.setResizable(false);

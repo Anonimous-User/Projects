@@ -1,8 +1,6 @@
 
 
 import java.awt.event.ActionListener;
-import java.awt.event.WindowListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.*;
@@ -150,9 +148,9 @@ public class Reminder extends Notes{
     }
     public void ModifyHour(int newHour){
         hour = newHour;
-        if(minute>=60){
+        if(hour>=23){
             ModifyDay(GetDay()+1);
-            minute = minute%60;
+            hour = hour%24;
         }
     }
     public void ModifyMinute(int newMinute){

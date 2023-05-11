@@ -1,10 +1,8 @@
 
 
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.spi.TimeZoneNameProvider;
 
 public class Time {
     private static SimpleDateFormat sdf;
@@ -20,9 +18,6 @@ public class Time {
         mergeSort(IDOfTimeZones, 0, IDOfTimeZones.length-1);
     }
 
-    public static ZoneId GetDefault(){
-        return tZone.getDefault().toZoneId();
-    }
 
     public static String[] GetAllIDs(){
         return IDOfTimeZones;
@@ -36,12 +31,16 @@ public class Time {
         sdf.setTimeZone(tZone);
     }
 
-
     public static String GetID(){
         return tZone.getID();
     }
     public static String GetZone(){
         sdf = new SimpleDateFormat("z");
+        date = new Date();
+        return sdf.format(date);
+    }
+    public static String GetTimeDifference(){
+        sdf = new SimpleDateFormat("Z");
         date = new Date();
         return sdf.format(date);
     }

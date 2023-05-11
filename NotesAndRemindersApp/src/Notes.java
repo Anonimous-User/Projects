@@ -1,15 +1,5 @@
 
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Notes extends JPanel{
