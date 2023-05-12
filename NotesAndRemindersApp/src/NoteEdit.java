@@ -25,7 +25,8 @@ public class NoteEdit extends JPanel{
         setFocusTraversalKeysEnabled(false);
         Texts = new TextArea();
         Texts.setBounds(0, App.headerFontSize, SizeWindowX, (SizeWindowY-App.headerFontSize)/2);
-        Texts.setFont(new Font(Font.SERIF, 0, 20));
+        App.Futura = App.Futura.deriveFont(0, 20);
+        Texts.setFont(App.Futura);
         Texts.append(Note.getNote());
 
         JComboBox<String> yrs = new JComboBox<String>(Time.Get10Years());
@@ -112,24 +113,29 @@ public class NoteEdit extends JPanel{
     public void paint(Graphics g){
         SizeWindowX = NoteFrame.getWidth();
         SizeWindowY = NoteFrame.getHeight();
-        g.setColor(Color.white);
+        g.setColor(App.ForegroundColour);
         g.fillRect(0, 0, SizeWindowX, SizeWindowY);
-        g.setFont(App.Lobster);
-        g.setColor(Color.BLACK);
+        g.setFont(App.Helvetica);
+        g.setColor(App.BackgroundColour);
         g.drawString("NOTE", App.indentSize, App.headerFontSize);
         if(isReminder){
             Texts.setBounds(0, App.headerFontSize, SizeWindowX, (SizeWindowY-App.headerFontSize)/2);
+            Texts.setBackground(App.ForegroundColour);
+            Texts.setForeground(App.BackgroundColour);
             SetReminderTime(g);
         } else{
             Texts.setBounds(0, App.headerFontSize, SizeWindowX, SizeWindowY-App.headerFontSize);
+            Texts.setBackground(App.ForegroundColour);
+            Texts.setForeground(App.BackgroundColour);
         }
     }
     
     public void SetReminderTime(Graphics g){
-        g.setFont(App.Lobster);
+        g.setFont(App.Helvetica);
         g.drawString("Time", App.indentSize, (int) (App.headerFontSize*2.25+((SizeWindowY-App.headerFontSize)/2)));
 
-        g.setFont(new Font(Font.SERIF, 0, 20));
+        App.Futura = App.Futura.deriveFont(0, 20);
+        g.setFont(App.Futura);
         for(int i=0; i<ReminderTimes.size(); i++){
             switch(i){
                 case(0):

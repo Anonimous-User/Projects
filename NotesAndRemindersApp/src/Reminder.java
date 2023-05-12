@@ -3,7 +3,6 @@
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import java.awt.*;
 
 public class Reminder extends Notes{
     private int year;
@@ -33,7 +32,8 @@ public class Reminder extends Notes{
         popup.setBounds(0, 0, 500, 200);
         popup.setResizable(true);
         JButton button = new JButton(getNote());
-        button.setFont(new Font(Font.SERIF, 0, 40));
+        App.Helvetica = App.Helvetica.deriveFont(0, 40);
+        button.setFont(App.Helvetica);
         popup.add(button);
 
         //makes button usable

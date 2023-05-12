@@ -17,7 +17,10 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     }
 
     //initialized variables
-    public static Font Lobster = null;
+    public static Font Helvetica = null;
+    public static Font Futura = null;
+    public static Color BackgroundColour = Color.WHITE;
+    public static Color ForegroundColour = Color.BLACK;
     public static JFrame frame = Start.Mainframe;
     public static int SizeWindowX = 900;
     public static int SizeWindowY = 900;
@@ -33,10 +36,10 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     public static int indentSize = 30 + rightShift;
     
     //non-initialized variables
+    public static SettingsBar settings;
     private static Timer timer;
     private static int MouseX;
     private static int MouseY;
-    private static SettingsBar settings;
 
 
 
@@ -49,8 +52,8 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
 
         //create and using Lobster font
         try {
-            Lobster = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(".\\src\\lobster\\Lobster 1.4.otf"));
-            Lobster  = Lobster.deriveFont(Font.BOLD + Font.ITALIC, headerFontSize);
+            Helvetica = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(".\\src\\Fonts\\Helvetica Bold Condensed.otf"));
+            Futura = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(".\\src\\Fonts\\Futura Medium.otf"));
         } catch (FontFormatException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -109,17 +112,20 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     //TODO: Make the page scrollable(or have a max line count)
     public void RemindersPage(Graphics g){
         //sets color
-        g.setColor(Color.BLACK);
+        g.setColor(ForegroundColour);
 
         //prints headers
-        g.setFont(Lobster);
+        Helvetica = Helvetica.deriveFont(0, headerFontSize);
+        g.setFont(Helvetica);
         g.drawString("Reminders", rightShift, headerFontSize);
 
         //prints all stored reminders and notes
-        g.setFont(new Font(Font.SERIF, 0, bodyFontSize));
+        Futura = Futura.deriveFont(0, bodyFontSize);
+        g.setFont(Futura);
         for(int i=0; i<remind.size(); i++){
             if(remind.get(i).isNew()){
-                g.setFont(new Font(Font.SERIF, Font.BOLD, bodyFontSize));
+                Futura = Futura.deriveFont(0, bodyFontSize);
+                g.setFont(Futura);
                 remind.get(i).DisplayNote((i+1)*bodyFontSize + headerFontSize, g);
             } else{
                 remind.get(i).DisplayNote((i+1)*bodyFontSize + headerFontSize, g);
@@ -139,17 +145,20 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
 
     public void NotesPage(Graphics g){
         //sets color
-        g.setColor(Color.BLACK);
+        g.setColor(ForegroundColour);
 
         //prints headers
-        g.setFont(Lobster);
+        Helvetica = Helvetica.deriveFont(0, headerFontSize);
+        g.setFont(Helvetica);
         g.drawString("Notes", rightShift, headerFontSize);
 
         //prints all stored reminders and notes
-        g.setFont(new Font(Font.SERIF, 0, bodyFontSize));
+        Futura = Futura.deriveFont(0, bodyFontSize);
+        g.setFont(Futura);
         for(int i=0; i<note.size(); i++){
             if(note.get(i).isNew()){
-                g.setFont(new Font(Font.SERIF, Font.BOLD, bodyFontSize));
+                Futura = Futura.deriveFont(0, bodyFontSize);
+                g.setFont(Futura);
                 note.get(i).DisplayNote((i+1)*bodyFontSize + headerFontSize, g);
             } else{
                 note.get(i).DisplayNote((i+1)*bodyFontSize + headerFontSize, g);
@@ -163,7 +172,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         SizeWindowY = frame.getHeight();
 
         //paints background
-        g.setColor(Color.white);
+        g.setColor(BackgroundColour);
         g.fillRect(0, 0, SizeWindowX, SizeWindowY);
 
         switch(screen){

@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.net.BindException;
 import java.sql.*;
 
 public class Database {
@@ -18,7 +19,7 @@ public class Database {
 			//  	prep.executeQuery();
 		  	// }
 			// insertData("test...test...");
-			retrieveData();
+			// retrieveData();
 		}
 		catch(SQLException e){
             e.printStackTrace();
@@ -89,8 +90,8 @@ public class Database {
 	public static void initDatabaseConnection() throws SQLException {
 		System.out.println("Connecting to the database...");
 		connection = DriverManager.getConnection(
-				"jdbc:mariadb://localhost:3306/NotesAndRemindersDB",
-				"User", "LocalUser");
+				"jdbc:mariadb://192.168.2.241:3306/NotesAndRemindersDB",
+				"RemoteUser", "RemoteAccess");
 		System.out.println("Connection valid: " + connection.isValid(5));
 	}
 
