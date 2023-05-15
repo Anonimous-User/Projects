@@ -12,15 +12,13 @@ public class SettingsBar extends JPanel{
     private int StartX = App.SizeWindowX/3*2-50;
     private int SizeX = 50;
     private int SizeY = 50;
-    private TimezoneSelection_Settings TZSelect;
-    private ColourThemeSelection_Settings CTSelect;
 
     public SettingsBar() {
         frame = new JFrame();
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
-        TZSelect = new TimezoneSelection_Settings(frame);
-        CTSelect = new ColourThemeSelection_Settings(frame);
+        TimezoneSelection_Settings.load(frame);
+        ColourThemeSelection_Settings.load(frame);
         frame.add(this);
     }
 

@@ -113,20 +113,20 @@ public class NoteEdit extends JPanel{
     public void paint(Graphics g){
         SizeWindowX = NoteFrame.getWidth();
         SizeWindowY = NoteFrame.getHeight();
-        g.setColor(App.ForegroundColour);
+        g.setColor(App.BackgroundColour);
         g.fillRect(0, 0, SizeWindowX, SizeWindowY);
         g.setFont(App.Helvetica);
-        g.setColor(App.BackgroundColour);
+        g.setColor(App.ForegroundColour);
         g.drawString("NOTE", App.indentSize, App.headerFontSize);
         if(isReminder){
             Texts.setBounds(0, App.headerFontSize, SizeWindowX, (SizeWindowY-App.headerFontSize)/2);
-            Texts.setBackground(App.ForegroundColour);
-            Texts.setForeground(App.BackgroundColour);
+            Texts.setBackground(App.BackgroundColour);
+            Texts.setForeground(App.ForegroundColour);
             SetReminderTime(g);
         } else{
             Texts.setBounds(0, App.headerFontSize, SizeWindowX, SizeWindowY-App.headerFontSize);
-            Texts.setBackground(App.ForegroundColour);
-            Texts.setForeground(App.BackgroundColour);
+            Texts.setBackground(App.BackgroundColour);
+            Texts.setForeground(App.ForegroundColour);
         }
     }
     

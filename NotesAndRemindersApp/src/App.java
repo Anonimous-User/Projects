@@ -19,7 +19,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     //initialized variables
     public static Font Helvetica = null;
     public static Font Futura = null;
-    public static Color BackgroundColour = Color.WHITE;
+    public static Color BackgroundColour = Color.LIGHT_GRAY;
     public static Color ForegroundColour = Color.BLACK;
     public static JFrame frame = Start.Mainframe;
     public static int SizeWindowX = 900;

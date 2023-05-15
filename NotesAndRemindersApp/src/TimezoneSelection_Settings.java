@@ -6,10 +6,10 @@ import javax.swing.JFrame;
 
 public class TimezoneSelection_Settings {
     //should go off of system timezone
-    private JComboBox<String> timeZoneSelection;
-    private String CurrentTimeZone = Time.GetZone();
+    private static JComboBox<String> timeZoneSelection;
+    private static String CurrentTimeZone = Time.GetZone();
     
-    public TimezoneSelection_Settings(JFrame frame){
+    public static void load(JFrame frame){
         timeZoneSelection = new JComboBox<String>(Time.GetAllIDs());
         timeZoneSelection.setEditable(true);
         timeZoneSelection.setSelectedItem(CurrentTimeZone);
@@ -33,10 +33,6 @@ public class TimezoneSelection_Settings {
                 App.renewReminderTime(changeHour, changeMinute);
             }
         });
-    }
-
-    public JComboBox<String> getJComboBox(){
-        return timeZoneSelection;
     }
 
 }
