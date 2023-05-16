@@ -13,6 +13,7 @@ public class SettingsBar extends JPanel{
     private int SizeX = 50;
     private int SizeY = 50;
 
+    /**initializes settings bar with timezone selection and colour theme selection */
     public SettingsBar() {
         frame = new JFrame();
         setFocusable(true);
@@ -22,11 +23,12 @@ public class SettingsBar extends JPanel{
         frame.add(this);
     }
 
-
+    /**displays settings button at 2/3 length of screen width */
     public void Display(Graphics g){
         g.drawRect(StartX, 0, SizeX, SizeY);
     }
 
+    /**checks for collision of block with mouse */
     public boolean Collide(int MouseX, int MouseY){
         if(!(MouseX>=StartX&&MouseX<=StartX+SizeX)){
             return false;
@@ -37,6 +39,7 @@ public class SettingsBar extends JPanel{
         return true;
     }
 
+    /**displays settings menu on seperate {@link JFrame} */
     public void main(){
         frame.setBounds(0, 0, SizeWindowX, SizeWindowY);
         frame.setBounds(0, 0, SizeWindowX, SizeWindowY);
@@ -47,7 +50,7 @@ public class SettingsBar extends JPanel{
         frame.setVisible(true);
     }
 
-    
+    /**paints background using {@link Graphics}*/
     public void paint(Graphics g){
         SizeWindowX = frame.getWidth();
         SizeWindowY = frame.getHeight();

@@ -9,7 +9,9 @@ public class TimezoneSelection_Settings {
     private static JComboBox<String> timeZoneSelection;
     private static String CurrentTimeZone = Time.GetZone();
     
+    /**initializes timezone selection options */
     public static void load(JFrame frame){
+        //initializes combo box with all available IDs(not all work)
         timeZoneSelection = new JComboBox<String>(Time.GetAllIDs());
         timeZoneSelection.setEditable(true);
         timeZoneSelection.setSelectedItem(CurrentTimeZone);
@@ -20,6 +22,8 @@ public class TimezoneSelection_Settings {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //This doesn't calculate correctly
+                //Also sort of need it for app start-up to have all reminder time be in current timezone
+                //When timezone is manually changed, have all reminder flagged time change with it
                 String selected = ((String)timeZoneSelection.getSelectedItem()).toUpperCase();
                 int changeHour = Integer.parseInt(Time.GetTimeDifference().substring(1, 3));
                 int changeMinute = Integer.parseInt(Time.GetTimeDifference().substring(3, 5));

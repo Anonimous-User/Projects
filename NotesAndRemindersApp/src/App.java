@@ -50,7 +50,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         setFocusTraversalKeysEnabled(false);
         Time.SortIDs();
 
-        //create and using Lobster font
+        //create fonts
         try {
             Helvetica = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(".\\src\\Fonts\\Helvetica Bold Condensed.otf"));
             Futura = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(".\\src\\Fonts\\Futura Medium.otf"));

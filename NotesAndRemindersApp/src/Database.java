@@ -32,6 +32,7 @@ public class Database {
 		}
 	}
 
+	/**clears all data from current database */
 	public static void clearData() throws SQLException{
 		try(PreparedStatement statement = connection.prepareStatement(
 			"DELETE FROM testuser"
@@ -44,6 +45,7 @@ public class Database {
 		}
 	}
 
+	/**inserts {@code msg} into current database */
 	public static void insertData(String msg) throws SQLException{
 		try(PreparedStatement statement = connection.prepareStatement(
 				"INSERT INTO testuser(Note) VALUES ('" + msg +"')"
@@ -51,6 +53,7 @@ public class Database {
 				statement.executeQuery();
 		}
 	}
+	/**inserts {@code msg, date, time} into their respective slots in same row in current database */
 	public static void insertData(String msg, String date, String time) throws SQLException{
 		try(PreparedStatement statement = connection.prepareStatement(
 				"INSERT INTO testuser(Note, Date, Time) VALUES ('" + msg +"', '" + date +"', '" + time + "')"
@@ -59,6 +62,7 @@ public class Database {
 		}
 	}
 
+	/**retrieves all {@code msg, date, time} from current database */
 	public static ArrayList<String[]> retrieveData() throws SQLException{
 		try(PreparedStatement statement = connection.prepareStatement(
 			"SELECT Note, Date, Time FROM testuser"
@@ -85,7 +89,7 @@ public class Database {
 		}
 	}
 
-
+	/**initializes connection with database {@code NotesAndRemindersDB} at{@code 192.168.2.241:3306} */
 	public static void initDatabaseConnection() throws SQLException {
 		System.out.println("Connecting to the database...");
 		connection = DriverManager.getConnection(
@@ -94,6 +98,7 @@ public class Database {
 		System.out.println("Connection valid: " + connection.isValid(5));
 	}
 
+	/**closes connection with current database */
 	public static void closeDatabaseConnection() throws SQLException {
 		System.out.println("Closing database connection...");
 		connection.close();

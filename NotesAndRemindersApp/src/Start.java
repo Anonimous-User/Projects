@@ -14,6 +14,7 @@ public class Start {
         Mainframe.setTitle("Project");
         Mainframe.setResizable(true);
         Mainframe.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //sets action of program for when its window is interacted with
         Mainframe.addWindowListener(new WindowListener(){
             @Override
             public void windowOpened(java.awt.event.WindowEvent e) {}

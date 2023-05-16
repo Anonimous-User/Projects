@@ -9,9 +9,10 @@ import java.awt.Color;
 public class ColourThemeSelection_Settings {
     private static JComboBox<String> ColourBackground;
     private static JComboBox<String> ColourForeground;
+
+    /**initializes colour theme selection options */
     public static void load(JFrame frame){
-        //Color not showing String but rgb values
-        //settings background doesn't update immediately after colour change
+        //initializes colours hashmap
         HashMap<String, Color> Colours = new HashMap<>();
         Colours.put("BLACK", Color.BLACK);
         Colours.put("BLUE", Color.BLUE);
@@ -26,6 +27,7 @@ public class ColourThemeSelection_Settings {
         Colours.put("RED", Color.RED);
         Colours.put("WHITE", Color.WHITE);
         Colours.put("YELLOW", Color.YELLOW);
+        //initializes allowed colours list, the list that will be displayed to user
         String[] AllowedColours = new String[]{
             "WHITE",
             "BLACK",
@@ -41,8 +43,8 @@ public class ColourThemeSelection_Settings {
             "MAGENTA",
             "PINK"
         };
+        //initializes combo boxes
         ColourBackground = new JComboBox<String>(AllowedColours);
-        ColourForeground = new JComboBox<String>(AllowedColours);
         ColourBackground.setEditable(true);
         ColourBackground.setSelectedItem("LIGHT_GRAY");
         ColourBackground.setBounds(55, 150, 160, 30);
@@ -56,6 +58,7 @@ public class ColourThemeSelection_Settings {
             }
         });
         
+        ColourForeground = new JComboBox<String>(AllowedColours);
         ColourForeground.setEditable(true);
         ColourForeground.setSelectedItem("BLACK");
         ColourForeground.setBounds(55, 200, 160, 30);

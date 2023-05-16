@@ -16,10 +16,13 @@ public class NoteEdit extends JPanel{
     private Notes Note;
     private boolean isReminder = false;
 
+    /**initializes new NoteEdit object */
     public NoteEdit(Notes n){
         Note = n;
         SetUp();
     }
+
+    /**initializes all needed variable */
     private void SetUp(){
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -40,7 +43,7 @@ public class NoteEdit extends JPanel{
         JComboBox<String> mins = new JComboBox<String>(Time.GetMinutesInHour());
         ReminderTimes.add(mins);
 
-        //switch number of days in a month when month box is changed
+        //modify days in month JCombo box to match selected month
         mths.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,7 +51,7 @@ public class NoteEdit extends JPanel{
                 days.setModel(model);
             }
         });
-        //switch number of days in febuary when year box is changed(Leap year)
+        //modify days in month JCombo box to match selected year (february in leap year)
         yrs.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,13 +61,15 @@ public class NoteEdit extends JPanel{
         });
     }
 
+    /**set type of NoteEdit as reminder */
     public void isRem(){
         isReminder = true;
     }
 
+    /**display NoteEdit on new {@link JFrame} */
     public void main(){
         if(isReminder){
-            if(((Reminder)Note).GetYear()==-1){
+            if(((Reminder)Note).GetYear()==-1){ //new reminder
                 ReminderTimes.get(0).setSelectedItem(Time.GetYear());
                 ReminderTimes.get(1).setSelectedIndex((Time.GetMonth()-1));
                 ReminderTimes.get(2).setSelectedIndex((Time.GetMonthDay()-1));
@@ -82,6 +87,7 @@ public class NoteEdit extends JPanel{
         NoteFrame.setTitle("");
         NoteFrame.setResizable(true);
         NoteFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //sets action of program when window is interacted with
         NoteFrame.addWindowListener(new WindowListener(){
             @Override
             public void windowOpened(WindowEvent e) {}
@@ -110,6 +116,7 @@ public class NoteEdit extends JPanel{
         NoteFrame.setVisible(true);
     }
 
+    /**paints NoteEdit background */
     public void paint(Graphics g){
         SizeWindowX = NoteFrame.getWidth();
         SizeWindowY = NoteFrame.getHeight();
@@ -130,6 +137,7 @@ public class NoteEdit extends JPanel{
         }
     }
     
+    /**displays reminder related options */
     public void SetReminderTime(Graphics g){
         g.setFont(App.Helvetica);
         g.drawString("Time", App.indentSize, (int) (App.headerFontSize*2.25+((SizeWindowY-App.headerFontSize)/2)));

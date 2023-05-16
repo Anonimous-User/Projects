@@ -16,19 +16,27 @@ public class TimerTaskOrganizer {
         NoteDeletion
     }
 
+    /**Organizes timed tasks to be run in background.
+     *Choices are {@code Notifications, reminder deletion process, note deletion process}.
+     *<p>{@code delay} is time from now to the first time ran.
+     *<p>{@code period} is the time delay between each run.
+     */
     public TimerTaskOrganizer(tasks assignedTask, int delay, int period){
         this.delay = delay;
         this.period = period;
         task = assignedTask;
     }
 
+    /**add {@code Note} object */
     public void addNote(Notes note){
         this.note = note;
     }
+    /**add {@code Reminder} object */
     public void addReminder(Reminder reminder){
         this.reminder = reminder;
     }
 
+    /**starts the timer task */
     public void run(){
         switch(task){
             case Notifications:
