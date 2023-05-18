@@ -1,8 +1,7 @@
 import os
 
 from flask import Flask
-from flask.helpers import send_from_directory
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 
 def create_app(config_file="config.py"):
@@ -15,6 +14,9 @@ def create_app(config_file="config.py"):
 
     from .extensions import db
     db.init_app(app)  # init Flask app for use w/ this extension instance
+    
+    from server.auth_blueprint import auth as auth_bp
+    app.register_blueprint(auth_bp)
 
     # Create the table schema in the database
     with app.app_context():

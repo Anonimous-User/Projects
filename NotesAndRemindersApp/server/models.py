@@ -1,3 +1,5 @@
+import bcrypt
+from server.extensions import db
 
 class User(db.Model):
     __tablename__ = "user"
@@ -29,8 +31,11 @@ class Note(db.Model):
 
     id = db.Column(db.Integer, nullable=False, unique=True, primary_key=True, autoincrement=True)
     message = db.Column(db.String, nullable=False)
-    date = db.Column(db.String, nullable=False)
-    time = db.Column(db.String, nullable=False)
+    date = db.Column(db.String, nullable=True)
+    time = db.Column(db.String, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    
+    user = db.relationship(User, foreign_key = [user_id])
 
     def __repr__(self):
         return f"<Message = {self.message}, date = {self.date}, time = {self.time}>"
