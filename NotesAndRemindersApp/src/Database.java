@@ -12,12 +12,12 @@ public class Database {
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		try {
 			initDatabaseConnection();
-			// try (PreparedStatement prep = connection.prepareStatement(
-			// 	"CREATE TABLE testuser(Note TEXT, Date TEXT, Time TEXT)"
-			// 	)) {
-			//  	prep.executeQuery();
-		  	// }
-			// insertData("test...test...");
+			try (PreparedStatement prep = connection.prepareStatement(
+				"CREATE TABLE testuser(Note TEXT, Date TEXT, Time TEXT)"
+				)) {
+			 	prep.executeQuery();
+		  	}
+			insertData("test...test...");
 			// retrieveData();
 		}
 		catch(SQLException e){
@@ -96,7 +96,7 @@ public class Database {
 			// "jdbc:mariadb://192.168.2.241:3306/NotesAndRemindersDB",
 			// "RemoteUser", "RemoteAccess");
 			"jdbc:mariadb://localhost:3306/NotesAndRemindersDB",
-			"User", "LocalUser"
+			"LocalUser", "LocalAccess"
 		);
 		System.out.println("Connection valid: " + connection.isValid(5));
 	}

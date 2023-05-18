@@ -1,4 +1,10 @@
 import java.awt.Graphics;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -23,8 +29,48 @@ public class SettingsBar extends JPanel{
         frame.add(this);
     }
 
+    public void deleteSettingsFile(){
+        File myObj = new File("settings.txt"); 
+        if (myObj.delete()) {
+            System.out.println("Deleted the file: " + myObj.getName());
+        } else {
+            System.out.println("Failed to delete the file.");
+        }
+    }
+
+    public void readSettingsFile() throws FileNotFoundException{
+        File myObj = new File("settings.txt");
+        Scanner myReader = new Scanner(myObj);
+        for(int i=0; i<3; i++) {
+            String data = myReader.nextLine();
+            System.out.println(data);
+        }
+        myReader.close();
+    }
+
+    public void writeSettingsFile(String str){
+        FileWriter myWriter;
+        try {
+            myWriter = new FileWriter("settings.txt");
+            myWriter.write(str+"\n");
+            myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void makeSettingsFile() throws IOException{
+        File myObj = new File("settings.txt");
+        if (myObj.createNewFile()) {
+          System.out.println("File created: " + myObj.getName());
+        } else {
+          System.out.println("File already exists.");
+        }
+    }
+
     /**displays settings button at 2/3 length of screen width */
     public void Display(Graphics g){
+        StartX = App.SizeWindowX/3*2-50;
         g.drawRect(StartX, 0, SizeX, SizeY);
     }
 
