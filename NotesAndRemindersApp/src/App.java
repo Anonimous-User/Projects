@@ -85,7 +85,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
                 }
             }
         } catch (SQLException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
         }
 
         //Sets new note and new reminder "buttons" as the end
@@ -96,16 +96,16 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         
         back.UpdateReminder(remind);
 
-
         settings = new SettingsBar();
 
+        repaint();
         //used for testing purposes
         // Time.setTimeZone((String)timeZoneSelection.getSelectedItem());
         // for(String i : Time.GetAllIDs()){
         //     System.out.println(i);
         // }
-        System.out.println(Time.GetAll());
-        System.out.println(Time.GetZone());
+        // System.out.println(Time.GetAll());
+        // System.out.println(Time.GetZone());
     }
     
     
@@ -289,6 +289,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            //database save
             try {
                 Database.clearData();
                 note.remove(note.size()-1);
@@ -305,6 +306,25 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
             } catch (NullPointerException e1){
                 e1.printStackTrace();
             }
+
+            //settings.txt save
+            String rtn = "";
+            for(String key : settings.CTSelect.Colours.keySet()){
+                if(settings.CTSelect.Colours.get(key).equals(App.BackgroundColour)){
+                    rtn += key;
+                }
+            }
+            rtn += "\n";
+            for(String key : settings.CTSelect.Colours.keySet()){
+                if(settings.CTSelect.Colours.get(key).equals(App.ForegroundColour)){
+                    rtn += key;
+                }
+            }
+            settings.writeSettingsFile(rtn);
+
+            //deletes all notes/reminders selected for deletion? needed?
+
+            //close program
             System.exit(0);
         }
     }

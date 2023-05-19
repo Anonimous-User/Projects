@@ -7,13 +7,39 @@ import javax.swing.JFrame;
 import java.awt.Color;
 
 public class ColourThemeSelection_Settings {
-    private static JComboBox<String> ColourBackground;
-    private static JComboBox<String> ColourForeground;
+    public HashMap<String, Color> Colours;
+    //initializes allowed colours list, the list that will be displayed to user
+    private String[] AllowedColours = new String[]{
+        "WHITE",
+        "BLACK",
+        "DARK_GRAY",
+        "GRAY",
+        "LIGHT_GRAY",
+        "BLUE",
+        "CYAN",
+        "GREEN",
+        "RED",
+        "ORANGE",
+        "YELLOW",
+        "MAGENTA",
+        "PINK"
+    };
+    public JComboBox<String> ColourBackground = new JComboBox<String>(AllowedColours);
+    public JComboBox<String> ColourForeground = new JComboBox<String>(AllowedColours);
 
     /**initializes colour theme selection options */
-    public static void load(JFrame frame){
+    public ColourThemeSelection_Settings(JFrame frame){
+        //initializes combo boxes
+        ColourBackground.setEditable(true);
+        ColourBackground.setBounds(55, 150, 160, 30);
+        frame.add(ColourBackground);
+        
+        ColourForeground.setEditable(true);
+        ColourForeground.setBounds(55, 200, 160, 30);
+        frame.add(ColourForeground);
+
         //initializes colours hashmap
-        HashMap<String, Color> Colours = new HashMap<>();
+        Colours = new HashMap<>();
         Colours.put("BLACK", Color.BLACK);
         Colours.put("BLUE", Color.BLUE);
         Colours.put("CYAN", Color.CYAN);
@@ -27,29 +53,18 @@ public class ColourThemeSelection_Settings {
         Colours.put("RED", Color.RED);
         Colours.put("WHITE", Color.WHITE);
         Colours.put("YELLOW", Color.YELLOW);
-        //initializes allowed colours list, the list that will be displayed to user
-        String[] AllowedColours = new String[]{
-            "WHITE",
-            "BLACK",
-            "DARK_GRAY",
-            "GRAY",
-            "LIGHT_GRAY",
-            "BLUE",
-            "CYAN",
-            "GREEN",
-            "RED",
-            "ORANGE",
-            "YELLOW",
-            "MAGENTA",
-            "PINK"
-        };
-        //initializes combo boxes
-        ColourBackground = new JComboBox<String>(AllowedColours);
-        ColourBackground.setEditable(true);
-        ColourBackground.setSelectedItem("LIGHT_GRAY");
-        ColourBackground.setBounds(55, 150, 160, 30);
-        frame.add(ColourBackground);
 
+        
+    }
+    
+    public void setSelected(String foreground, String background){
+        ColourBackground.setSelectedItem(background);
+        ColourForeground.setSelectedItem(foreground);
+        App.BackgroundColour = Colours.get(ColourBackground.getSelectedItem());
+        App.ForegroundColour = Colours.get(ColourForeground.getSelectedItem());
+    }
+
+    public void addActionlisteners(){
         ColourBackground.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,12 +72,6 @@ public class ColourThemeSelection_Settings {
                 App.settings.repaint();
             }
         });
-        
-        ColourForeground = new JComboBox<String>(AllowedColours);
-        ColourForeground.setEditable(true);
-        ColourForeground.setSelectedItem("BLACK");
-        ColourForeground.setBounds(55, 200, 160, 30);
-        frame.add(ColourForeground);
 
         ColourForeground.addActionListener(new ActionListener(){
             @Override
@@ -72,5 +81,4 @@ public class ColourThemeSelection_Settings {
             }
         });
     }
-    
 }

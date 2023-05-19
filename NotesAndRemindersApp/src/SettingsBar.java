@@ -8,10 +8,9 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-//TODO: save current setting to text file?
-
 public class SettingsBar extends JPanel{
 
+    public ColourThemeSelection_Settings CTSelect;
     private JFrame frame;
     private int SizeWindowX = 300;
     private int SizeWindowY = 600;
@@ -25,46 +24,48 @@ public class SettingsBar extends JPanel{
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         TimezoneSelection_Settings.load(frame);
-        ColourThemeSelection_Settings.load(frame);
+        CTSelect = new ColourThemeSelection_Settings(frame);
+        try {
+            makeSettingsFile();
+            readSettingsFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        CTSelect.addActionlisteners();
         frame.add(this);
     }
 
-    public void deleteSettingsFile(){
-        File myObj = new File("settings.txt"); 
-        if (myObj.delete()) {
-            System.out.println("Deleted the file: " + myObj.getName());
-        } else {
-            System.out.println("Failed to delete the file.");
-        }
-    }
-
+    /**reads data from settings.txt and saves to settings bar.
+     * <p> first line is background, second line is foreground
+     */
     public void readSettingsFile() throws FileNotFoundException{
         File myObj = new File("settings.txt");
         Scanner myReader = new Scanner(myObj);
-        for(int i=0; i<3; i++) {
-            String data = myReader.nextLine();
-            System.out.println(data);
-        }
+
+        String back = myReader.nextLine();
+        String fore = myReader.nextLine();
+        CTSelect.setSelected(fore, back);
+
         myReader.close();
     }
 
+    /**writes given string str into file, overwrites everything in file */
     public void writeSettingsFile(String str){
-        FileWriter myWriter;
         try {
+            FileWriter myWriter;
             myWriter = new FileWriter("settings.txt");
-            myWriter.write(str+"\n");
+            myWriter.write(str);
             myWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**creates new Settings.txt at root directory with defaulted value BLACK for background and LIGHT_GRAY for foreground */
     public void makeSettingsFile() throws IOException{
         File myObj = new File("settings.txt");
         if (myObj.createNewFile()) {
-          System.out.println("File created: " + myObj.getName());
-        } else {
-          System.out.println("File already exists.");
+            writeSettingsFile("LIGHT_GRAY" + "\n" + "BLACK");
         }
     }
 

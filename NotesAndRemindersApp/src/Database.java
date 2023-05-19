@@ -12,12 +12,12 @@ public class Database {
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		try {
 			initDatabaseConnection();
-			try (PreparedStatement prep = connection.prepareStatement(
-				"CREATE TABLE testuser(Note TEXT, Date TEXT, Time TEXT)"
-				)) {
-			 	prep.executeQuery();
-		  	}
-			insertData("test...test...");
+			// try (PreparedStatement prep = connection.prepareStatement(
+			// 	"CREATE TABLE testuser(Note TEXT, Date TEXT, Time TEXT)"
+			// 	)) {
+			//  	prep.executeQuery();
+		  	// }
+			// insertData("test...test...");
 			// retrieveData();
 		}
 		catch(SQLException e){
