@@ -51,10 +51,12 @@ public class TimerTaskOrganizer {
         }
     }
 
+    /**cancels the current timer and its processes */
     public void stop(){
         timer.cancel();
     }
 
+    /**specifically for notifying users of a reminder */
     private void notifications(){
         TimerTask notifications = new TimerTask() {
             public void run() {
@@ -65,6 +67,7 @@ public class TimerTaskOrganizer {
         timer.schedule(notifications, delay, period);
     }
 
+    /**specifically for deleting a reminder object */
     private void deleteReminder(){
         TimerTask deleteReminder = new TimerTask() {
             public void run() {
@@ -81,6 +84,7 @@ public class TimerTaskOrganizer {
         timer.schedule(deleteReminder, delay);
     }
     
+    /**specifically for deleting a note object */
     private void deleteNote(){
         TimerTask deleteNote = new TimerTask() {
             public void run() {

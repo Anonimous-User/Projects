@@ -1,5 +1,3 @@
-
-
 import java.awt.Graphics;
 
 public class NoteCompleted_Block extends Blocks{

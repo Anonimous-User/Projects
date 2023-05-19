@@ -1,4 +1,3 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -89,7 +88,9 @@ public class Database {
 		}
 	}
 
-	/**initializes connection with database {@code NotesAndRemindersDB} at{@code 192.168.2.241:3306} */
+	/**initializes connection with database {@code NotesAndRemindersDB} at{@code 192.168.2.241:3306}
+	 * <p>local only at the moment
+	 */
 	public static void initDatabaseConnection() throws SQLException {
 		System.out.println("Connecting to the database...");
 		connection = DriverManager.getConnection(

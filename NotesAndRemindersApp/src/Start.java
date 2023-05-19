@@ -1,7 +1,4 @@
-
-
 import java.awt.event.WindowListener;
-
 import javax.swing.JFrame;
 
 public class Start {

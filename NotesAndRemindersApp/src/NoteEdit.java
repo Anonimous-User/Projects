@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -167,6 +166,5 @@ public class NoteEdit extends JPanel{
         }
         //updates objects on JFrame
         NoteFrame.add(this);
-        //TODO: Make a usable calendar instead if it makes it easier/more user-friendly
     }
 }

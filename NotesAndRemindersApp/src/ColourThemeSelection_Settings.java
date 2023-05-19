@@ -3,7 +3,6 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-
 import java.awt.Color;
 
 public class ColourThemeSelection_Settings {

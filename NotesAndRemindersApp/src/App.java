@@ -1,5 +1,3 @@
-
-
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -60,6 +58,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
             e.printStackTrace();
         }
 
+        //timer tasks initialized
         TimerTaskOrganizer notifications = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.Notifications, 0, 1000);
         notifications.run();
         TimerTask renewUI = new TimerTask() {
@@ -94,8 +93,10 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         remind.add(new Reminder("NEW REMINDER"));
         remind.get(remind.size()-1).setNew();
         
+        //updates notiification checking array
         back.UpdateReminder(remind);
 
+        //initilizes settings bar
         settings = new SettingsBar();
 
         repaint();
@@ -108,8 +109,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         // System.out.println(Time.GetZone());
     }
     
-    
-    //TODO: Make the page scrollable(or have a max line count)
+    /**screen setup for reminders screen */
     public void RemindersPage(Graphics g){
         //sets color
         g.setColor(ForegroundColour);
@@ -133,6 +133,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         }
     }
 
+    /**update all reminde times to new Timezone set in {@link Time} */
     public static void renewReminderTime(int changeInHour, int changeInMinute){
         for(Reminder r : remind){
             //order doesn't matter
@@ -143,6 +144,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         }
     }
 
+    /**screen layout for notes screen */
     public void NotesPage(Graphics g){
         //sets color
         g.setColor(ForegroundColour);
@@ -195,10 +197,10 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
         MouseY = e.getY();
         System.out.println(MouseX+" "+MouseY);
         switch(screen){
+            //check if new reminder/note button is clicked
+            //makes new reminder/note
+            //enter edit mode for that reminder/note
             case ReminderScreen:
-                //check if new reminder/note button is clicked
-                //makes new reminder/note
-                //enter edit mode for that reminder/note
                 for(Reminder r : remind){
                     if(r.Collide(MouseX, MouseY)){
                         if(r.isNew()){
@@ -215,6 +217,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
                         r.setNotNew();
                         break;
                     }
+                    //if user checks intends to check off reminder
                     if(r.Completed(MouseX, MouseY)){
                         if(r.getStateCompletion()){
                             r.startDeletionProcess();
@@ -241,6 +244,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
                         n.setNotNew();
                         break;
                     }
+                    //if user checks intends to check off note
                     if(n.Completed(MouseX, MouseY)){
                         if(n.getStateCompletion()){
                             n.startDeletionProcess();
@@ -253,6 +257,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
                 break;
         }
 
+        //checks if switch page block is used
         if(switchPages.Collide(MouseX, MouseY)){
             switch(screen){
                 case ReminderScreen:
@@ -265,6 +270,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
             switchPages.ChangeScreen();
             repaint();
         }
+        //checks if settings is clicked
         if(settings.Collide(MouseX, MouseY)){
             settings.main();
         }
@@ -288,6 +294,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
 
     @Override
     public void keyPressed(KeyEvent e) {
+        //everything that happens right before program exit
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
             //database save
             try {

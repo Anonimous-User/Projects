@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import javax.swing.JPanel;
 
@@ -63,7 +62,7 @@ public class Notes extends JPanel{
     }
     /**adds type reminder of current note to timertask organizer */
     public void deletionOrganizerIsRem(){
-        deletionOrganizer = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.ReminderDeletion, 10*1000, 0);
+        deletionOrganizer = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.ReminderDeletion, 5*1000, 0);
         deletionOrganizer.addReminder((Reminder) this);
     }
     /**initiates deletion process for current note */
