@@ -1,11 +1,13 @@
 import java.awt.event.WindowListener;
+import java.io.IOException;
+
 import javax.swing.JFrame;
 
 public class Start {
     
     public static JFrame Mainframe = new JFrame();
     
-    public static void main (String[] args)
+    public static void main (String[] args) throws IOException
     {
         Mainframe.setBounds(0, 0, 900, 900);
         Mainframe.setTitle("Project");

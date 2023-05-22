@@ -1,9 +1,12 @@
 import java.awt.Graphics;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,22 +19,20 @@ public class SettingsBar extends JPanel{
     private int StartX = App.SizeWindowX/3*2-50;
     private int SizeX = 50;
     private int SizeY = 50;
+    private Image SettingsButton;
 
     /**initializes settings bar with timezone selection and colour theme selection */
-    public SettingsBar() {
+    public SettingsBar() throws IOException {
         frame = new JFrame();
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         TimezoneSelection_Settings.load(frame);
         CTSelect = new ColourThemeSelection_Settings(frame);
-        try {
-            makeSettingsFile();
-            readSettingsFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        makeSettingsFile();
+        readSettingsFile();
         CTSelect.addActionlisteners();
         frame.add(this);
+        SettingsButton = ImageIO.read(new File(".\\src\\PNGs\\SettingsButton.png"));
     }
 
     /**reads data from settings.txt and saves to settings bar.
@@ -71,7 +72,7 @@ public class SettingsBar extends JPanel{
     /**displays settings button at 2/3 length of screen width */
     public void Display(Graphics g){
         StartX = App.SizeWindowX/3*2-50;
-        g.drawRect(StartX, 0, SizeX, SizeY);
+        g.drawImage(SettingsButton, StartX, 0, null);
     }
 
     /**checks for collision of block with mouse */

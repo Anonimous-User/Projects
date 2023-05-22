@@ -41,7 +41,7 @@ public class App extends JPanel implements MouseListener, ActionListener, KeyLis
 
 
 
-    public App(){
+    public App() throws IOException{
         addMouseListener(this);
         addKeyListener(this);
         setFocusable(true);
