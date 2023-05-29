@@ -7,8 +7,9 @@ public class Notes extends JPanel{
     private int endX;
     private int y;
     private int endY;
-    private NoteEdit NE;
+    private int time_SecondsUntilDeleted = 5;
     private boolean isNew = false;
+    private NoteEdit NE;
     private NoteCompleted_Block complete_block;
     private TimerTaskOrganizer deletionOrganizer;
 
@@ -18,7 +19,7 @@ public class Notes extends JPanel{
         NE = new NoteEdit(this);
         x = App.indentSize;
         complete_block = new NoteCompleted_Block(8, 0);
-        deletionOrganizer = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.NoteDeletion, 10*1000, 0);
+        deletionOrganizer = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.NoteDeletion, time_SecondsUntilDeleted*1000, 0);
         deletionOrganizer.addNote(this);
     }
     /**retrieves message saved in note*/
@@ -62,7 +63,7 @@ public class Notes extends JPanel{
     }
     /**adds type reminder of current note to timertask organizer */
     public void deletionOrganizerIsRem(){
-        deletionOrganizer = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.ReminderDeletion, 5*1000, 0);
+        deletionOrganizer = new TimerTaskOrganizer(TimerTaskOrganizer.tasks.ReminderDeletion, time_SecondsUntilDeleted*1000, 0);
         deletionOrganizer.addReminder((Reminder) this);
     }
     /**initiates deletion process for current note */
